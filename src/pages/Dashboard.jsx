@@ -6,6 +6,8 @@ import Chart from "react-apexcharts";
 
 import Statuscard from "../components/status-card/Statuscard";
 
+import Table from "../components/table/Table";
+
 import statusCards from "../assets/JsonData/status-card-data.json";
 
 const chartOptions = {
@@ -52,6 +54,42 @@ const chartOptions = {
   },
 };
 
+const topCustomers = {
+  head: ["user", "total orders", "total spending"],
+  body: [
+    {
+      username: "Nguyen Manh Ha",
+      oder: "036",
+      price: "$999,009",
+    },
+    {
+      username: "Long Nguyen",
+      oder: "213",
+      price: "$3423,009",
+    },
+    {
+      username: "Phu Nguyen",
+      oder: "013",
+      price: "$234324,234",
+    },
+    {
+      username: "Nguyen Nhu",
+      oder: "342",
+      price: "$23234,324324",
+    },
+  ],
+};
+
+const renderCusomerHead = (item, index) => <th key={index}>{item}</th>;
+
+const renderCusomerBody = (item, index) => (
+  <tr key={index}>
+    <td>{item.username}</td>
+    <td>{item.oder}</td>
+    <td>{item.price}</td>
+  </tr>
+);
+
 const Dashboard = () => {
   return (
     <div>
@@ -86,7 +124,15 @@ const Dashboard = () => {
             <div className="card__header">
               <h3>top customers</h3>
             </div>
-            <div className="card__body">{/* table */}</div>
+            <div className="card__body">
+              {/* table */}
+              <Table
+                headData={topCustomers.head}
+                renderHead={(item, index) => renderCusomerHead(item, index)}
+                bodyData={topCustomers.body}
+                renderBody={(item, index) => renderCusomerBody(item, index)}
+              />
+            </div>
             <div className="card__footer">
               <Link to="/">View all</Link>
             </div>

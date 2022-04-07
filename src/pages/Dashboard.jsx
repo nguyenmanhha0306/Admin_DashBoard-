@@ -8,6 +8,8 @@ import Statuscard from "../components/status-card/Statuscard";
 
 import Table from "../components/table/Table";
 
+import Badge from "../components/badge/Badge";
+
 import statusCards from "../assets/JsonData/status-card-data.json";
 
 const chartOptions = {
@@ -147,14 +149,14 @@ const orderStatus = {
 
 const renderOrderHead = (item, index) => <th key={index}>{item}</th>;
 
-const renderOrderBody = (item, inedx) => (
+const renderOrderBody = (item, index) => (
   <tr>
     <td>{item.id}</td>
     <td>{item.user}</td>
     <td>{item.date}</td>
     <td>{item.price}</td>
     <td>
-      <span>{item.status}</span>
+      <Badge type={orderStatus[item.status]} content={item.status} />
     </td>
   </tr>
 );

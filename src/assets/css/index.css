@@ -81,7 +81,7 @@ input:focus {
   text-transform: capitalize;
 }
 
-.card__header ~ .card__body {
+.card > dic ~ div {
   margin-top: 30px;
 }
 

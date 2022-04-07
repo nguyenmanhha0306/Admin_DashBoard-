@@ -58,7 +58,7 @@ const topCustomers = {
   head: ["user", "total orders", "total spending"],
   body: [
     {
-      username: "Nguyen Manh Ha",
+      username: "Nguyen Ha",
       oder: "036",
       price: "$999,009",
     },
@@ -80,13 +80,82 @@ const topCustomers = {
   ],
 };
 
-const renderCusomerHead = (item, index) => <th key={index}>{item}</th>;
+const renderCustomerHead = (item, index) => <th key={index}>{item}</th>;
 
-const renderCusomerBody = (item, index) => (
+const renderCustomerBody = (item, index) => (
   <tr key={index}>
     <td>{item.username}</td>
     <td>{item.oder}</td>
     <td>{item.price}</td>
+  </tr>
+);
+
+const latestOrders = {
+  header: ["order id", "user", "total price", "date", "status"],
+  body: [
+    {
+      id: "#OD1711",
+      user: "Nguyen Ha",
+      date: "03 Jun 2022",
+      price: "$990",
+      status: "shipping",
+    },
+    {
+      id: "#SH3251",
+      user: "Nguyen Nguyen",
+      date: "19 Mar 2022",
+      price: "$450",
+      status: "paid",
+    },
+    {
+      id: "#NH4321",
+      user: "Phu Nguyen",
+      date: "13 May 2022",
+      price: "$675",
+      status: "pending",
+    },
+    {
+      id: "#OI549",
+      user: "U La Tr",
+      date: "8 Sep 2022",
+      price: "$342",
+      status: "paid",
+    },
+    {
+      id: "#OI549",
+      user: "U La Tr",
+      date: "8 Sep 2022",
+      price: "$342",
+      status: "paid",
+    },
+    {
+      id: "#VF643",
+      user: "Nhat Long",
+      date: "21 Mar 2022",
+      price: "$656",
+      status: "refund",
+    },
+  ],
+};
+
+const orderStatus = {
+  shipping: "primary",
+  pending: "warning",
+  paid: "success",
+  refund: "danger",
+};
+
+const renderOrderHead = (item, index) => <th key={index}>{item}</th>;
+
+const renderOrderBody = (item, inedx) => (
+  <tr>
+    <td>{item.id}</td>
+    <td>{item.user}</td>
+    <td>{item.date}</td>
+    <td>{item.price}</td>
+    <td>
+      <span>{item.status}</span>
+    </td>
   </tr>
 );
 
@@ -128,13 +197,31 @@ const Dashboard = () => {
               {/* table */}
               <Table
                 headData={topCustomers.head}
-                renderHead={(item, index) => renderCusomerHead(item, index)}
+                renderHead={(item, index) => renderCustomerHead(item, index)}
                 bodyData={topCustomers.body}
-                renderBody={(item, index) => renderCusomerBody(item, index)}
+                renderBody={(item, index) => renderCustomerBody(item, index)}
               />
             </div>
             <div className="card__footer">
               <Link to="/">View all</Link>
+            </div>
+          </div>
+        </div>
+        <div className="col-8">
+          <div className="card">
+            <div className="card__header">
+              <h3>latest orders</h3>
+            </div>
+            <div className="card__body">
+              <Table
+                headData={latestOrders.head}
+                renderHead={(item, index) => renderOrderHead(item, index)}
+                bodyData={latestOrders.body}
+                renderBody={(item, index) => renderOrderBody(item, index)}
+              />
+            </div>
+            <div className="card__footer">
+              <Link to="/">view all</Link>
             </div>
           </div>
         </div>

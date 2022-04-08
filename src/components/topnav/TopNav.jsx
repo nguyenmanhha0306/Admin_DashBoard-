@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 import Dropdown from "../dropdown/Dropdown";
 
+import ThemeMenu from "../thememenu/ThemeMenu";
+
 import notifications from "../../assets/JsonData/notification.json";
 
 import user_image from "../../assets/images/ha.jpg";
@@ -68,7 +70,9 @@ const TopNav = () => {
           />
           {/*dropdown here */}
         </div>
-        <div className="topnav__right-item"></div>
+        <div className="topnav__right-item">
+          <ThemeMenu />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import "./thememenu.css";
+
+import { useDispatch } from "react-redux";
+
+import ThemeAction from "../../redux/actions/ThemeAction";
 
 const mode_settings = [
   {
@@ -77,14 +82,18 @@ const ThemeMenu = () => {
 
   const [currColor, setcurrColor] = useState("blue");
 
+  const dispatch = useDispatch();
+
   const setMode = (mode) => {
     setcurrMode(mode.id);
     localStorage.setItem("themeMode", mode.class);
+    dispatch(ThemeAction.setMode(mode.class));
   };
 
   const setColor = (color) => {
     setcurrColor(color.id);
     localStorage.setItem("colorMode", color.class);
+    dispatch(ThemeAction.setColor(color.class));
   };
 
   useEffect(() => {

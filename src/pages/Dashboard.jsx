@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
 import Chart from "react-apexcharts";
+
+import { useSelector, useDispatch } from "react-redux";
 
 import Statuscard from "../components/status-card/Statuscard";
 
@@ -11,6 +13,8 @@ import Table from "../components/table/Table";
 import Badge from "../components/badge/Badge";
 
 import statusCards from "../assets/JsonData/status-card-data.json";
+
+import ThemeAction from "../redux/actions/ThemeAction";
 
 const chartOptions = {
   series: [
@@ -150,7 +154,7 @@ const orderStatus = {
 const renderOrderHead = (item, index) => <th key={index}>{item}</th>;
 
 const renderOrderBody = (item, index) => (
-  <tr>
+  <tr key={index}>
     <td>{item.id}</td>
     <td>{item.user}</td>
     <td>{item.date}</td>
@@ -162,6 +166,13 @@ const renderOrderBody = (item, index) => (
 );
 
 const Dashboard = () => {
+  const themeReducer = useSelector((state) => state.ThemeReducer.mode);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(ThemeAction.getTheme());
+  });
   return (
     <div>
       <h2 className="page-header">Dashboard</h2>
@@ -169,7 +180,7 @@ const Dashboard = () => {
         <div className="col-6">
           <div className="row">
             {statusCards.map((item, index) => (
-              <div className="col-6">
+              <div className="col-6" key={index}>
                 <Statuscard
                   icon={item.icon}
                   count={item.count}
@@ -183,7 +194,17 @@ const Dashboard = () => {
           <div className="card full-height">
             {/* Chart */}
             <Chart
-              options={chartOptions.options}
+              options={
+                themeReducer === "theme-mode-dark"
+                  ? {
+                      ...chartOptions.options,
+                      theme: { mode: "dark" },
+                    }
+                  : {
+                      ...chartOptions.options,
+                      theme: { mode: "light" },
+                    }
+              }
               series={chartOptions.series}
               type="line"
               height="100%"
